@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:taskie_app/pages/home_screen.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+  var box = await Hive.openBox('taskie_app');
   runApp(const MyApp());
 }
 

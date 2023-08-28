@@ -13,7 +13,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   double? customHeight, customWidth;
   bool isdone = false;
-  final dateTime = DateTime.fromMicrosecondsSinceEpoch.toString();
+  final DateTime dateTime = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +73,7 @@ class _HomePageState extends State<HomePage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             CustomText(
-              text: dateTime,
+              text: dateTime.toString(),
             ),
           ],
         ),
@@ -95,7 +95,12 @@ class _HomePageState extends State<HomePage> {
           return Card(
             margin: EdgeInsets.all(5.0),
             child: ListTile(
-              title: Text('Tasks'),
+              title: Text(
+                'Tasks',
+                style: TextStyle(
+                  fontWeight: FontWeight.w300,
+                ),
+              ),
               trailing: IconButton(
                 onPressed: () {
                   setState(() {
