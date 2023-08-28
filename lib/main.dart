@@ -13,6 +13,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        fontFamily: 'Phudu-Regular',
         appBarTheme: const AppBarTheme(
           backgroundColor: Colors.amberAccent,
           titleSpacing: 1.8,
