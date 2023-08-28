@@ -13,6 +13,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   double? customHeight, customWidth;
   bool isdone = false;
+  final dateTime = DateTime.fromMicrosecondsSinceEpoch.toString();
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +32,19 @@ class _HomePageState extends State<HomePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.max,
           children: [
-            titleItem(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                titleItem(),
+                IconButton(
+                    onPressed: () {
+                      customShowDialog();
+                    },
+                    icon: Icon(
+                      Icons.add_box,
+                    ))
+              ],
+            ),
             10.heightBox,
             taskDATELists(),
             10.heightBox,
@@ -54,6 +67,17 @@ class _HomePageState extends State<HomePage> {
     return CustomContainer(
       height: customHeight! * 0.3,
       width: customWidth! * 0.95,
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            CustomText(
+              text: dateTime,
+            ),
+          ],
+        ),
+      ),
     );
   }
 
@@ -82,10 +106,48 @@ class _HomePageState extends State<HomePage> {
                   isdone ? Icons.check_box : Icons.check_box_outline_blank,
                 ),
               ),
+              onLongPress: () {},
             ),
           );
         },
       ),
+    );
+  }
+
+  void customShowDialog() async {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('ADD NEW TASK?'),
+          backgroundColor: Colors.white,
+          actions: [
+            TextFormField(
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(5.0),
+                ),
+                hintText: 'NEW TASK',
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text('Cancel'),
+                ),
+                TextButton(
+                  onPressed: () {},
+                  child: Text('Done'),
+                ),
+              ],
+            )
+          ],
+        );
+      },
     );
   }
 }
