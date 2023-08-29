@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:taskie_app/models/task_model.dart';
 import 'package:taskie_app/widgets/custom_container.dart';
 import 'package:taskie_app/widgets/custom_text.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -14,6 +16,10 @@ class _HomePageState extends State<HomePage> {
   double? customHeight, customWidth;
   bool isdone = false;
   final DateTime dateTime = DateTime.now();
+  final boxOpen = Hive.openBox<TaskModel>('taskie_app');
+  List<String> taskList = [
+    '',
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -90,13 +96,13 @@ class _HomePageState extends State<HomePage> {
   Widget tasksItem() {
     return Expanded(
       child: ListView.builder(
-        itemCount: 10,
+        itemCount: taskList.length,
         itemBuilder: (context, index) {
           return Card(
             margin: EdgeInsets.all(5.0),
             child: ListTile(
               title: Text(
-                'Tasks',
+                taskList[index],
                 style: TextStyle(
                   fontWeight: FontWeight.w300,
                 ),
@@ -140,12 +146,16 @@ class _HomePageState extends State<HomePage> {
               children: [
                 TextButton(
                   onPressed: () {
+                    taskList.add('');
                     Navigator.pop(context);
                   },
                   child: Text('Cancel'),
                 ),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    taskList.add('');
+                    Navigator.pop(context);
+                  },
                   child: Text('Done'),
                 ),
               ],
