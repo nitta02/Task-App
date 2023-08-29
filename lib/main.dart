@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
           backgroundColor: Colors.amberAccent,
           titleSpacing: 1.8,
         ),
-        primarySwatch: Colors.blueGrey,
+        primarySwatch: Colors.grey,
       ),
       home: const HomePage(),
     );
