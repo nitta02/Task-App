@@ -130,9 +130,9 @@ class _HomePageState extends State<HomePage> {
                           title: const Text('OPTIONS'),
                           actions: [
                             TextButton(
-                              onPressed: () {
-                                editTask(data[index].toString());
-                                Navigator.pop(context);
+                              onPressed: () async {
+                                await editTask(
+                                    data[index], data[index].task.toString());
                               },
                               child: const Text('EDIT'),
                             ),
@@ -196,7 +196,7 @@ class _HomePageState extends State<HomePage> {
 
                     data.save();
 
-                    print(box);
+                    // print(box);
                     taskDetails.clear();
 
                     Navigator.pop(context);
@@ -217,7 +217,8 @@ class _HomePageState extends State<HomePage> {
     taskModel.delete();
   }
 
-  Future<void> editTask(String task) async {
+  Future<void> editTask(TaskModel taskModel, String task) async {
+    taskDetails.text = task;
     return showDialog(
       context: context,
       builder: (context) {
@@ -229,7 +230,6 @@ class _HomePageState extends State<HomePage> {
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(5.0),
               ),
-              hintText: 'EDIT TASK',
             ),
             controller: taskDetails,
           ),
@@ -244,7 +244,10 @@ class _HomePageState extends State<HomePage> {
                   child: const Text('Cancel'),
                 ),
                 TextButton(
-                  onPressed: () {
+                  onPressed: () async {
+                    taskModel.task = taskDetails.text.toString();
+                    taskModel.save();
+
                     Navigator.pop(context);
                   },
                   child: const Text('Done'),

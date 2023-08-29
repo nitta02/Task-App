@@ -6,15 +6,13 @@ part 'task_model.g.dart';
 @HiveType(typeId: 1)
 class TaskModel extends HiveObject {
   @HiveField(0)
-  final String task;
+  late final String task;
 
   @HiveField(1)
   final bool isDone;
 
   @HiveField(2)
   final DateTime dateTime;
-
-  var priority;
 
   TaskModel({
     required this.task,
