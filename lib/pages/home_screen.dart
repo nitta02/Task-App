@@ -5,6 +5,7 @@ import 'package:taskie_app/box/database_box.dart';
 import 'package:taskie_app/models/task_model.dart';
 import 'package:taskie_app/widgets/custom_container.dart';
 import 'package:taskie_app/widgets/custom_text.dart';
+import 'package:taskie_app/widgets/heat_calendar.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class HomePage extends StatefulWidget {
@@ -52,7 +53,8 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
             10.heightBox,
-            taskDATELists(),
+            // taskDATELists(),
+            HeatCalendar(),
             10.heightBox,
             titleItem2(),
             10.heightBox,
