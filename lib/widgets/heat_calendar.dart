@@ -12,17 +12,17 @@ class _HeatCalendarState extends State<HeatCalendar> {
   @override
   Widget build(BuildContext context) {
     return HeatMapCalendar(
-      borderRadius: 25,
+      borderRadius: 30,
       margin: EdgeInsets.all(5.0),
-      
+
       datasets: {
         DateTime(2023, 8, 24): 5,
         DateTime(2023, 8, 25): 4,
         DateTime(2023, 8, 26): 1,
         DateTime(2023, 8, 27): 2,
-        DateTime(2023, 8, 28): 10,
+        DateTime(2023, 8, 28): 6,
         DateTime(2023, 8, 29): 3,
-        DateTime(2023, 8, 30): 6,
+        DateTime(2023, 8, 30): 8,
       },
       textColor: Colors.black,
       weekTextColor: Colors.black,
@@ -33,7 +33,7 @@ class _HeatCalendarState extends State<HeatCalendar> {
       colorMode: ColorMode.opacity,
       // showText: false,
       // scrollable: true,
-      colorsets: {
+      colorsets: const {
         1: Color.fromRGBO(20, 2, 179, 8),
         2: Color.fromRGBO(40, 2, 179, 8),
         3: Color.fromRGBO(60, 2, 179, 8),
