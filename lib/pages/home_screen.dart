@@ -28,6 +28,7 @@ class _HomePageState extends State<HomePage> {
     customWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
           child: Padding(
         padding: EdgeInsets.symmetric(
@@ -54,7 +55,12 @@ class _HomePageState extends State<HomePage> {
             ),
             10.heightBox,
             // taskDATELists(),
-            HeatCalendar(),
+            Container(
+                padding: EdgeInsets.symmetric(
+                  horizontal: customHeight! * 0.03,
+                  vertical: customWidth! * 0.005,
+                ),
+                child: const HeatCalendar()),
             10.heightBox,
             titleItem2(),
             10.heightBox,
@@ -66,8 +72,16 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget titleItem() {
-    return const CustomText(
-      text: 'DATE',
+    return Row(
+      children: [
+        const CustomText(
+          text: 'DATE',
+        ),
+        15.widthBox,
+        CustomText(
+            text:
+                '${DateTime.now().day}.${DateTime.now().month}.${DateTime.now().year}')
+      ],
     );
   }
 
