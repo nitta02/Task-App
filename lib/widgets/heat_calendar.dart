@@ -15,6 +15,7 @@ class _HeatCalendarState extends State<HeatCalendar> {
   double? customHeight, customWidth;
   bool isdone = false;
   final DateTime dateTime = DateTime.now();
+  Map<DateTime, List<TaskModel>> events = {};
 
   @override
   Widget build(BuildContext context) {

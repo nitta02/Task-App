@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:taskie_app/box/database_box.dart';
@@ -6,6 +7,7 @@ import 'package:taskie_app/models/task_model.dart';
 import 'package:taskie_app/widgets/custom_container.dart';
 import 'package:taskie_app/widgets/custom_text.dart';
 import 'package:taskie_app/widgets/heat_calendar.dart';
+import 'package:taskie_app/widgets/table_calendar.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class HomePage extends StatefulWidget {
@@ -55,12 +57,13 @@ class _HomePageState extends State<HomePage> {
             ),
             10.heightBox,
             // taskDATELists(),
-            Container(
-                padding: EdgeInsets.symmetric(
-                  horizontal: customHeight! * 0.03,
-                  vertical: customWidth! * 0.005,
-                ),
-                child: const HeatCalendar()),
+            // Container(
+            //     padding: EdgeInsets.symmetric(
+            //       horizontal: customHeight! * 0.03,
+            //       vertical: customWidth! * 0.005,
+            //     ),
+            //     child: const HeatCalendar()),
+            TableCalendarWidget(),
             10.heightBox,
             titleItem2(),
             10.heightBox,
@@ -119,51 +122,75 @@ class _HomePageState extends State<HomePage> {
             itemCount: data.length,
             itemBuilder: (context, index) {
               return Card(
-                margin: const EdgeInsets.all(5.0),
-                child: ListTile(
-                  title: Text(
-                    data[index].task.toString(),
-                    style: const TextStyle(
-                      fontWeight: FontWeight.w300,
-                    ),
-                  ),
-                  trailing: IconButton(
-                    onPressed: () {
-                      setState(() {
-                        isdone = !isdone;
-                      });
-                    },
-                    icon: Icon(
-                      isdone ? Icons.check_box : Icons.check_box_outline_blank,
-                    ),
-                  ),
-                  onLongPress: () {
-                    showDialog(
-                      context: context,
-                      builder: (context) {
-                        return AlertDialog(
-                          backgroundColor: Colors.white,
-                          title: const Text('OPTIONS'),
-                          actions: [
-                            TextButton(
-                              onPressed: () async {
-                                await editTask(
-                                    data[index], data[index].task.toString());
-                              },
-                              child: const Text('EDIT'),
-                            ),
-                            TextButton(
-                              onPressed: () {
-                                deleteTask(data[index]);
-                                Navigator.pop(context);
-                              },
-                              child: const Text('DELETE'),
-                            )
-                          ],
-                        );
+                elevation: 5.0,
+                margin: const EdgeInsets.all(10.0),
+                child: Slidable(
+                  endActionPane: ActionPane(motion: StretchMotion(), children: [
+                    SlidableAction(
+                      backgroundColor: Colors.red,
+                      flex: 5,
+                      onPressed: (context) async {
+                        deleteTask(data[index]);
                       },
-                    );
-                  },
+                      icon: Icons.delete,
+                    )
+                  ]),
+                  child: ListTile(
+                    title: Text(
+                      data[index].task.toString(),
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w300,
+                      ),
+                    ),
+                    leading: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          isdone = !isdone;
+                        });
+                      },
+                      icon: Icon(
+                        isdone
+                            ? Icons.check_box
+                            : Icons.check_box_outline_blank,
+                      ),
+                    ),
+                    onLongPress: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            backgroundColor: Colors.white,
+                            title: Text('OPTIONS'),
+                            actions: [
+                              TextButton(
+                                onPressed: () async {
+                                  await editTask(
+                                      data[index], data[index].task.toString());
+                                },
+                                style: ButtonStyle(
+                                    backgroundColor: MaterialStatePropertyAll(
+                                  Colors.grey,
+                                )),
+                                child: const Text(
+                                  'EDIT',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                              // TextButton(
+                              //   onPressed: () {
+                              //     deleteTask(data[index]);
+                              //     Navigator.pop(context);
+                              //   },
+                              //   child: const Text('DELETE'),
+                              // )
+                            ],
+                          );
+                        },
+                      );
+                    },
+                  ),
                 ),
               );
             },
@@ -200,22 +227,29 @@ class _HomePageState extends State<HomePage> {
                   child: const Text('Cancel'),
                 ),
                 TextButton(
-                  onPressed: () {
-                    final data = TaskModel(
-                      task: taskDetails.text,
-                      isDone: isdone,
-                      dateTime: dateTime,
-                    );
+                  onPressed: () async {
+                    if (taskDetails.text.isEmpty) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Required Task Details')),
+                      );
+                      Navigator.pop(context);
+                    } else {
+                      final data = TaskModel(
+                        task: taskDetails.text,
+                        isDone: isdone,
+                        dateTime: dateTime,
+                      );
 
-                    final box = DataBaseBox.getData();
-                    box.add(data);
+                      final box = DataBaseBox.getData();
+                      box.add(data);
 
-                    data.save();
+                      data.save();
 
-                    // print(box);
-                    taskDetails.clear();
+                      // print(box);
+                      taskDetails.clear();
 
-                    Navigator.pop(context);
+                      Navigator.pop(context);
+                    }
                   },
                   child: const Text('Done'),
                 ),
