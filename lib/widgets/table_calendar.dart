@@ -15,7 +15,7 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
   bool isdone = false;
   DateTime focusdateTime = DateTime.now();
   CalendarFormat calendarFormat = CalendarFormat.month;
-  Map<DateTime, List<TaskModel>> events = {};
+  Map<DateTime, List<TaskModel>> events = { };
   DateTime? selectedDate;
 
   @override

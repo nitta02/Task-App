@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:table_calendar/table_calendar.dart';
 import 'package:taskie_app/box/database_box.dart';
 import 'package:taskie_app/models/task_model.dart';
 import 'package:taskie_app/widgets/custom_container.dart';
 import 'package:taskie_app/widgets/custom_text.dart';
-import 'package:taskie_app/widgets/heat_calendar.dart';
-import 'package:taskie_app/widgets/table_calendar.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class HomePage extends StatefulWidget {
@@ -23,6 +21,17 @@ class _HomePageState extends State<HomePage> {
   final DateTime dateTime = DateTime.now();
   final boxOpen = Hive.openBox<TaskModel>('taskie_app');
   final taskDetails = TextEditingController();
+  DateTime focusdateTime = DateTime.now();
+  CalendarFormat calendarFormat = CalendarFormat.month;
+  Map<DateTime, List<TaskModel>> events = {};
+  DateTime? selectedDate;
+
+  @override
+  void initState() {
+    super.initState();
+    selectedDate = focusdateTime;
+    updateCalendarEvents();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +72,7 @@ class _HomePageState extends State<HomePage> {
             //       vertical: customWidth! * 0.005,
             //     ),
             //     child: const HeatCalendar()),
-            TableCalendarWidget(),
+            tableCalendarWidget(),
             10.heightBox,
             titleItem2(),
             10.heightBox,
@@ -117,27 +126,30 @@ class _HomePageState extends State<HomePage> {
       child: ValueListenableBuilder<Box<TaskModel>>(
         valueListenable: DataBaseBox.getData().listenable(),
         builder: (context, value, child) {
-          var data = value.values.toList().cast<TaskModel>();
+          updateCalendarEvents();
+          // var data = value.values.toList().cast<TaskModel>();
+          final selectedTasks = events[selectedDate] ?? [];
           return ListView.builder(
-            itemCount: data.length,
+            itemCount: selectedTasks.length,
             itemBuilder: (context, index) {
               return Card(
                 elevation: 5.0,
                 margin: const EdgeInsets.all(10.0),
                 child: Slidable(
-                  endActionPane: ActionPane(motion: StretchMotion(), children: [
+                  endActionPane:
+                      ActionPane(motion: const StretchMotion(), children: [
                     SlidableAction(
                       backgroundColor: Colors.red,
                       flex: 5,
                       onPressed: (context) async {
-                        deleteTask(data[index]);
+                        deleteTask(selectedTasks[index]);
                       },
                       icon: Icons.delete,
                     )
                   ]),
                   child: ListTile(
                     title: Text(
-                      data[index].task.toString(),
+                      selectedTasks[index].task.toString(),
                       style: const TextStyle(
                         fontWeight: FontWeight.w300,
                       ),
@@ -160,14 +172,14 @@ class _HomePageState extends State<HomePage> {
                         builder: (context) {
                           return AlertDialog(
                             backgroundColor: Colors.white,
-                            title: Text('OPTIONS'),
+                            title: const Text('OPTIONS'),
                             actions: [
                               TextButton(
                                 onPressed: () async {
-                                  await editTask(
-                                      data[index], data[index].task.toString());
+                                  await editTask(selectedTasks[index],
+                                      selectedTasks[index].task.toString());
                                 },
-                                style: ButtonStyle(
+                                style: const ButtonStyle(
                                     backgroundColor: MaterialStatePropertyAll(
                                   Colors.grey,
                                 )),
@@ -197,6 +209,36 @@ class _HomePageState extends State<HomePage> {
           );
         },
       ),
+    );
+  }
+
+  Widget tableCalendarWidget() {
+    return TableCalendar(
+      focusedDay: focusdateTime,
+      calendarFormat: calendarFormat,
+      onFormatChanged: (format) {
+        if (calendarFormat != format) {
+          setState(() {
+            calendarFormat = format;
+          });
+        }
+      },
+      firstDay: DateTime(2000),
+      lastDay: DateTime(2050),
+      onDaySelected: (selectedDay, focusedDay) {
+        if (!isSameDay(selectedDate, selectedDay)) {
+          setState(() {
+            selectedDate = selectedDay;
+            focusdateTime = focusedDay;
+          });
+        }
+      },
+      selectedDayPredicate: (day) {
+        return isSameDay(selectedDate, day);
+      },
+      onPageChanged: (focusedDay) {
+        focusdateTime = focusedDay;
+      },
     );
   }
 
@@ -234,16 +276,11 @@ class _HomePageState extends State<HomePage> {
                       );
                       Navigator.pop(context);
                     } else {
-                      final data = TaskModel(
-                        task: taskDetails.text,
-                        isDone: isdone,
-                        dateTime: dateTime,
+                      addTaskToCalendar(
+                        selectedDate!,
+                        taskDetails.text,
+                        isdone,
                       );
-
-                      final box = DataBaseBox.getData();
-                      box.add(data);
-
-                      data.save();
 
                       // print(box);
                       taskDetails.clear();
@@ -310,41 +347,31 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  // void updateTask(TaskModel taskModel){
-  //   taskModel.isDone= !taskModel.isDone;
-  //   taskModel.save();
-  // }
+  Future<void> addTaskToCalendar(
+      DateTime date, String taskDetails, bool isDone) async {
+    final data = TaskModel(
+      task: taskDetails,
+      isDone: isDone,
+      dateTime: date,
+    );
 
-  // void updateTaskDetails(TaskModel taskModel){
-  //   taskModel.task = taskDetails.text;
-  //   taskModel.save();
-  // }
+    final box = await boxOpen;
+    await box.add(data);
+    data.save();
+  }
 
-  // void updateTaskDateTime(TaskModel taskModel){
-  //   taskModel.dateTime = dateTime;
-  //   taskModel.save();
-  // }
+  void updateCalendarEvents() {
+    final box = DataBaseBox.getData();
+    final tasks = box.values.toList().cast<TaskModel>();
 
-  // void updateTaskColor(TaskModel taskModel){taskModel.color = color;
-  //   taskModel.save();
-  // }
+    events.clear();
 
-  // void updateTaskPriority(TaskModel taskModel){
-  //   taskModel.priority= priority;
-  //   taskModel.save();
-  // }
-
-  // void updateTaskReminder(TaskModel taskModel){
-  //   taskModel.reminder= reminder;
-  //   taskModel.save();
-  // }
-
-  // void updateTaskReminderTime(TaskModel taskModel){
-  //    = reminderTime;
-  //   taskModel.save();
-  // }
-
-  // void updateTaskReminderDate(TaskModel taskModel){
-  //   taskModel.reminderDate
-  // }
+    for (final task in tasks) {
+      final taskDate = task.dateTime;
+      if (!events.containsKey(taskDate)) {
+        events[taskDate] = [];
+      }
+      events[taskDate]!.add(task);
+    }
+  }
 }
