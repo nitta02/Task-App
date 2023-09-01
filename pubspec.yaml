@@ -41,6 +41,7 @@ dependencies:
   path_provider: ^2.1.0
   flutter_heatmap_calendar: ^1.0.5
   table_calendar: ^3.0.9
+  flutter_slidable: ^3.0.0
 
 dev_dependencies:
   flutter_test:
