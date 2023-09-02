@@ -33,7 +33,7 @@ class _SplashScreenState extends State<SplashScreen> {
           ),
           15.heightBox,
           const Text(
-            'Taskie App',
+            'Taskie',
             style: TextStyle(
               fontSize: 30,
               fontWeight: FontWeight.bold,

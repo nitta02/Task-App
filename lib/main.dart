@@ -23,8 +23,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         fontFamily: 'Phudu-Regular',
-        appBarTheme: const AppBarTheme(
-          backgroundColor: Colors.amberAccent,
+        appBarTheme: AppBarTheme(
+          backgroundColor: Colors.blueAccent.shade100,
           titleSpacing: 1.8,
         ),
         primarySwatch: Colors.grey,
