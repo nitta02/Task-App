@@ -4,6 +4,8 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:taskie_app/box/database_box.dart';
 import 'package:taskie_app/models/task_model.dart';
+import 'package:taskie_app/screens/drawer_screen.dart';
+import 'package:taskie_app/screens/performance_screen.dart';
 import 'package:taskie_app/widgets/custom_container.dart';
 import 'package:taskie_app/widgets/custom_text.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -40,6 +42,20 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
+      drawer: const DrawerScreen(),
+      appBar: AppBar(
+        elevation: 0.0,
+        title: titleItem(),
+        actions: [
+          IconButton(
+              onPressed: () {
+                customShowDialog();
+              },
+              icon: const Icon(
+                Icons.add_box,
+              ))
+        ],
+      ),
       body: SafeArea(
           child: Padding(
         padding: EdgeInsets.symmetric(
@@ -51,20 +67,12 @@ class _HomePageState extends State<HomePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.max,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                titleItem(),
-                IconButton(
-                    onPressed: () {
-                      customShowDialog();
-                    },
-                    icon: const Icon(
-                      Icons.add_box,
-                    ))
-              ],
-            ),
-            10.heightBox,
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+            //   crossAxisAlignment: CrossAxisAlignment.start,
+            //   children: [],
+            // ),
+            5.heightBox,
             // taskDATELists(),
             // Container(
             //     padding: EdgeInsets.symmetric(
