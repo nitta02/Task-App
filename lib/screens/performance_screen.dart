@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:taskie_app/screens/drawer_screen.dart';
 import 'package:taskie_app/widgets/custom_text.dart';
-import 'package:taskie_app/widgets/heat_calendar.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class PerformanceScreen extends StatefulWidget {
@@ -12,6 +11,15 @@ class PerformanceScreen extends StatefulWidget {
 }
 
 class _PerformanceScreenState extends State<PerformanceScreen> {
+  DateTime focusdateTime = DateTime.now();
+  DateTime? selectedDate;
+
+  @override
+  void initState() {
+    super.initState();
+    selectedDate = focusdateTime;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +35,10 @@ class _PerformanceScreenState extends State<PerformanceScreen> {
           mainAxisSize: MainAxisSize.max,
           children: [
             5.heightBox,
-            const HeatCalendar(),
+            // MonthlySummary(
+            //   datasets: events.cast(),
+            //   startDate: selectedDate!.,
+            // ),
           ],
         ),
       )),

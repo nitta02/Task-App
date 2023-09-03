@@ -24,7 +24,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            leading: const Icon(Icons.auto_graph),
+            leading: const Icon(Icons.home),
             onTap: () {
               Navigator.push(
                   context,
