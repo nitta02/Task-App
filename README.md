@@ -1,16 +1,11 @@
 # taskie_app
 
-A new Flutter project.
+A new Flutter project on TASK MANAGEMENT .
+If you want you can use the source code .
 
-## Getting Started
+# Here are some app screenshots
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![Screenshot (42)](https://github.com/nittoranjansarkertanmoy02/taskie_app/assets/110607962/489663d1-ee10-4cac-a6ab-7a5d8a7b1ab1)
+![Screenshot (45)](https://github.com/nittoranjansarkertanmoy02/taskie_app/assets/110607962/92106f42-65ec-451c-9613-78c2704cab67)
+![Screenshot (44)](https://github.com/nittoranjansarkertanmoy02/taskie_app/assets/110607962/e5c8cd01-354d-4ee6-bb4c-19f4cc1713ee)
