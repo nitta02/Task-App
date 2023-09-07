@@ -12,10 +12,10 @@ class TableCalendarWidget extends StatefulWidget {
 class _TableCalendarWidgetState extends State<TableCalendarWidget> {
   final taskDetails = TextEditingController();
   double? customHeight, customWidth;
-  bool isdone = false;
+  // bool isdone = false;
   DateTime focusdateTime = DateTime.now();
   CalendarFormat calendarFormat = CalendarFormat.month;
-  Map<DateTime, List<TaskModel>> events = { };
+  // Map<DateTime, List<TaskModel>> events = { };
   DateTime? selectedDate;
 
   @override

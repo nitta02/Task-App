@@ -8,7 +8,7 @@ class DataBaseBox {
   List todaysHabitList = [];
   Map<DateTime, int> events = {};
 
-  // // create initial default data
+  // create initial default data
   // void createDefaultData() {
   //   todaysHabitList = [
   //     ["Run", false],
@@ -18,7 +18,7 @@ class DataBaseBox {
   //   _myBox.put("START_DATE", todaysDateFormatted());
   // }
 
-  // // load data if it already exists
+  // load data if it already exists
   // void loadData() {
   //   // if it's a new day, get habit list from database
   //   if (_myBox.get(todaysDateFormatted()) == null) {
@@ -34,7 +34,7 @@ class DataBaseBox {
   //   }
   // }
 
-  // // update database
+  // update database
   // void updateDatabase() {
   //   // update todays entry
   //   _myBox.put(todaysDateFormatted(), todaysHabitList);
