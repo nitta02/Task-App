@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:taskie_app/models/task_model.dart';
+// ignore: unused_import
 import 'package:taskie_app/pages/home_screen.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:taskie_app/screens/splash_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,13 +23,13 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         fontFamily: 'Phudu-Regular',
-        appBarTheme: const AppBarTheme(
-          backgroundColor: Colors.amberAccent,
+        appBarTheme: AppBarTheme(
+          backgroundColor: Colors.blueAccent.shade100,
           titleSpacing: 1.8,
         ),
-        primarySwatch: Colors.blueGrey,
+        primarySwatch: Colors.grey,
       ),
-      home: const HomePage(),
+      home: const SplashScreen(),
     );
   }
 }
