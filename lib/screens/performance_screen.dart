@@ -17,7 +17,7 @@ class PerformanceScreen extends StatefulWidget {
 class _PerformanceScreenState extends State<PerformanceScreen> {
   DateTime focusdateTime = DateTime.now();
   DateTime? selectedDate;
-  Box<TaskModel> boxopen = DataBaseBox.getData();
+  final boxopen = DataBaseBox.getData();
 
   @override
   void initState() {
