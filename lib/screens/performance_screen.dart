@@ -15,14 +15,37 @@ class PerformanceScreen extends StatefulWidget {
 }
 
 class _PerformanceScreenState extends State<PerformanceScreen> {
-  DateTime focusdateTime = DateTime.now();
+  DateTime focusDateTime = DateTime.now();
   DateTime? selectedDate;
-  final boxopen = DataBaseBox.getData();
+
+  late Future<String?> startDateFuture;
+  late Map<DateTime, int> datasets;
+
+  final boxOpen = Hive.openBox<TaskModel>('taskie_app');
 
   @override
   void initState() {
     super.initState();
-    selectedDate = focusdateTime;
+    selectedDate = focusDateTime;
+    startDateFuture = _loadStartDate();
+  }
+
+  Future<String?> _loadStartDate() async {
+    final box = await boxOpen;
+    return box.get('dateTime') as String?;
+  }
+
+  Future<void> _loadDatasets() async {
+    final box = await boxOpen;
+    final taskList = box.values.toList();
+    datasets = _convertToHeatMapData(taskList);
+    setState(() {});
+  }
+
+  Map<DateTime, int> _convertToHeatMapData(List<TaskModel> taskList) {
+    final Map<DateTime, int> data = {};
+    // Your logic to convert taskList to data map
+    return data;
   }
 
   @override
@@ -33,20 +56,45 @@ class _PerformanceScreenState extends State<PerformanceScreen> {
         title: titleItem(),
       ),
       body: SafeArea(
-          child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            5.heightBox,
-            // MonthlySummary(
-            //   datasets: boxopen,
-            //   startDate: boxopen.get('dateTime').toString(),
-            // ),
-          ],
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              5.heightBox,
+              FutureBuilder<String?>(
+                future: startDateFuture,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return CircularProgressIndicator();
+                  } else if (snapshot.hasError) {
+                    return Text('Error: ${snapshot.error}');
+                  } else {
+                    return FutureBuilder<void>(
+                      future: _loadDatasets(),
+                      builder: (context, datasetSnapshot) {
+                        if (datasetSnapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return CircularProgressIndicator();
+                        } else if (datasetSnapshot.hasError) {
+                          return Text('Error: ${datasetSnapshot.error}');
+                        } else {
+                          final startDate = snapshot.data ?? '';
+                          return MonthlySummary(
+                            datasets: datasets,
+                            startDate: startDate,
+                          );
+                        }
+                      },
+                    );
+                  }
+                },
+              ),
+            ],
+          ),
         ),
-      )),
+      ),
     );
   }
 
