@@ -9,6 +9,11 @@ This is a Flutter-based task management application that allows users to schedul
 - **Hive Database**: Local storage for efficient task management.
 - **User Interface**: Custom UI components for seamless user experience.
 
+
+## Preview
+
+![Preview](assets/images/calendar.png)
+
 ## Project Structure
 
 ```bash
@@ -33,5 +38,3 @@ This is a Flutter-based task management application that allows users to schedul
 └── hive_boxes                        # Folder containing Hive database boxes
 
 
-## Preview
-![Preview](assets/images/calendar.png)
