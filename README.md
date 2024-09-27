@@ -12,7 +12,7 @@ This is a Flutter-based task management application that allows users to schedul
 
 ## Preview
 
-![Preview](assets/images/calendar.png)
+![Preview](assets/images/ss.png)
 
 ## Project Structure
 
