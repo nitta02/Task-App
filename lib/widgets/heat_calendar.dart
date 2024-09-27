@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
-import 'package:taskie_app/date_time/date_time.dart';
+import 'package:taskie_app/functions/date_time/date_time.dart';
 
 class MonthlySummary extends StatelessWidget {
   final Map<DateTime, int>? datasets;

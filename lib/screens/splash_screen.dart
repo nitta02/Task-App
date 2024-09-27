@@ -1,5 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:taskie_app/functions/splash_function.dart';
+import 'package:taskie_app/screens/home_screen.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -13,7 +15,16 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Utils().splashFunctions(context);
+    Timer(
+        const Duration(
+          seconds: 5,
+        ), () {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const HomePage(),
+          ));
+    });
   }
 
   @override

@@ -1,11 +1,37 @@
-# taskie_app
+# Task App with Calendar Feature
 
-A new Flutter project on TASK MANAGEMENT .
-If you want you can use the source code .
+This is a Flutter-based task management application that allows users to schedule and track tasks through a calendar interface. The app uses the Hive database for offline storage.
 
-# Here are some app screenshots
+## Features
+
+- **Task Management**: Add, edit, and delete tasks.
+- **Calendar View**: Visual representation of tasks on a calendar.
+- **Hive Database**: Local storage for efficient task management.
+- **User Interface**: Custom UI components for seamless user experience.
+
+## Project Structure
+
+```bash
+├── lib
+│   ├── features
+│   │   ├── task
+│   │   │   ├── task_bloc.dart      # Business logic for managing tasks
+│   │   │   ├── task_repository.dart # Repository for task operations
+│   │   │   └── task_service.dart    # Services related to task management
+│   ├── models
+│   │   ├── task_model.dart          # Model for Task object
+│   │   └── task_model_g.dart      
+│   ├── screens
+│   │   ├── home_screen.dart         # Main screen with task list and calendar
+│   │   ├── task_detail_screen.dart  # Screen for viewing task details
+│   │   └── calendar_screen.dart     # Calendar view screen
+│   ├── widgets
+│   │   ├── task_card.dart           # UI component for individual task card
+│   │   └── calendar_widget.dart     # UI component for the calendar
+│   └── main.dart                    # Entry point of the application
+├── pubspec.yaml                      # Project dependencies
+└── hive_boxes                        # Folder containing Hive database boxes
 
 
-![Screenshot (42)](https://github.com/nittoranjansarkertanmoy02/taskie_app/assets/110607962/489663d1-ee10-4cac-a6ab-7a5d8a7b1ab1)
-![Screenshot (45)](https://github.com/nittoranjansarkertanmoy02/taskie_app/assets/110607962/92106f42-65ec-451c-9613-78c2704cab67)
-![Screenshot (44)](https://github.com/nittoranjansarkertanmoy02/taskie_app/assets/110607962/e5c8cd01-354d-4ee6-bb4c-19f4cc1713ee)
+## Preview
+![Preview](assets/images/calendar.png)

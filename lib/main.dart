@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:taskie_app/models/task_model.dart';
 // ignore: unused_import
-import 'package:taskie_app/pages/home_screen.dart';
+import 'package:taskie_app/screens/home_screen.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:taskie_app/screens/splash_screen.dart';
 

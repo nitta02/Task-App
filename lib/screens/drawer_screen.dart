@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:taskie_app/pages/home_screen.dart';
-import 'package:taskie_app/screens/performance_screen.dart';
-import 'package:taskie_app/widgets/heat_calendar.dart';
+import 'package:taskie_app/screens/home_screen.dart';
 
 class DrawerScreen extends StatefulWidget {
   const DrawerScreen({super.key});
@@ -33,22 +31,6 @@ class _DrawerScreenState extends State<DrawerScreen> {
                   ));
             },
           ),
-          ListTile(
-            title: const Text(
-              'Performance Calendar',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            leading: const Icon(Icons.auto_graph),
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const PerformanceScreen(),
-                  ));
-            },
-          )
         ],
       ),
     );

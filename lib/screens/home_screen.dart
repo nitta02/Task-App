@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'package:taskie_app/box/database_box.dart';
+import 'package:taskie_app/functions/box/database_box.dart';
 import 'package:taskie_app/models/task_model.dart';
 import 'package:taskie_app/screens/drawer_screen.dart';
-import 'package:taskie_app/screens/performance_screen.dart';
 import 'package:taskie_app/widgets/custom_container.dart';
 import 'package:taskie_app/widgets/custom_text.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -188,7 +187,7 @@ class _HomePageState extends State<HomePage> {
                                       selectedTasks[index].task.toString());
                                 },
                                 style: const ButtonStyle(
-                                    backgroundColor: MaterialStatePropertyAll(
+                                    backgroundColor: WidgetStatePropertyAll(
                                   Colors.grey,
                                 )),
                                 child: const Text(
